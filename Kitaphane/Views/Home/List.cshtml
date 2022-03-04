@@ -1,0 +1,60 @@
+﻿@using Kitaphane.Models.Entity
+@model List<TBLKITAP>
+@{
+    ViewBag.Title = "Index";
+    var i = 0;
+}
+
+<table class="table align-middle">
+    <thead>
+        <tr>
+            <th scope="col">ID:</th>
+            <th scope="col">Kitap Adı</th>
+            <th scope="col">Kitap ISBN</th>
+            <th scope="col">Kitap Yılı</th>
+            <th scope="col">Kitap Fiyatı</th>
+            <th scope="col">Durumu</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+        @foreach (var kitap in Model)
+                { i = +1;
+        <tr>
+            <th scope="row">@kitap.kitapid</th>
+            <td>@kitap.kitapad</td>
+            <td>@kitap.kitapisbn</td>
+            <td>@kitap.kitapyil</td>
+            <td>@kitap.kitapfiyat</td>
+            <td>@kitap.kitapcheck</td>
+            <td>
+
+                <div class="row">
+                    @if (kitap.kitapcheck == "Alınabilir")
+                    {
+                        <button type="button" class="btn btn-danger btn-sm px-3 m-2" onclick="location.href = '/Home/CheckOut/@kitap.kitapid'">
+
+                            <i>Kirala</i>
+                        </button>
+                    }
+                    else
+                    {
+                        <button type="button" class="btn btn-danger btn-sm px-3 m-2" onclick="location.href = '/Home/CheckIn/@kitap.kitapid'">
+
+                            <i>Geri Ver</i>
+                        </button>
+
+                    }
+                    <button type="button" class="btn btn-primary btn-sm px-3 m-2" onclick="location.href = '/Home/Detay/@kitap.kitapid'">
+
+                        <i>Detay</i>
+                    </button>
+
+                </div>
+
+
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>

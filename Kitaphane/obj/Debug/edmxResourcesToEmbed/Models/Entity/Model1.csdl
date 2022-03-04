@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcKitapModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TBLCHECK">
+    <Key>
+      <PropertyRef Name="checkid" />
+    </Key>
+    <Property Name="checkid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="islemkisi" Type="Int32" />
+    <Property Name="islemtarih" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="TBLKISILER" Relationship="Self.FK_TBLCHECK_TBLKISILER" FromRole="TBLCHECK" ToRole="TBLKISILER" />
+    <NavigationProperty Name="TBLKITAP" Relationship="Self.FK_TBLKITAP_TBLCHECK" FromRole="TBLCHECK" ToRole="TBLKITAP" />
+  </EntityType>
+  <EntityType Name="TBLKATEGORILER">
+    <Key>
+      <PropertyRef Name="kategoriid" />
+    </Key>
+    <Property Name="kategoriid" Type="Int16" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kategoriad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TBLKITAP" Relationship="Self.FK_TBLKITAP_TBLKATEGORILER" FromRole="TBLKATEGORILER" ToRole="TBLKITAP" />
+  </EntityType>
+  <EntityType Name="TBLKISILER">
+    <Key>
+      <PropertyRef Name="kisiid" />
+    </Key>
+    <Property Name="kisiid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kisiad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kisisoyad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kisitc" Type="Int32" />
+    <Property Name="kisitelno" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TBLCHECK" Relationship="Self.FK_TBLCHECK_TBLKISILER" FromRole="TBLKISILER" ToRole="TBLCHECK" />
+  </EntityType>
+  <EntityType Name="TBLKITAP">
+    <Key>
+      <PropertyRef Name="kitapid" />
+    </Key>
+    <Property Name="kitapid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kitapad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kitapisbn" Type="Int32" />
+    <Property Name="kitapyil" Type="Int32" />
+    <Property Name="kitapfiyat" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="kitapcheck" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kitapkategori" Type="Int16" />
+    <Property Name="kitapresim" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="kitapcheckid" Type="Int32" />
+    <NavigationProperty Name="TBLCHECK" Relationship="Self.FK_TBLKITAP_TBLCHECK" FromRole="TBLKITAP" ToRole="TBLCHECK" />
+    <NavigationProperty Name="TBLKATEGORILER" Relationship="Self.FK_TBLKITAP_TBLKATEGORILER" FromRole="TBLKITAP" ToRole="TBLKATEGORILER" />
+  </EntityType>
+  <Association Name="FK_TBLCHECK_TBLKISILER">
+    <End Role="TBLKISILER" Type="Self.TBLKISILER" Multiplicity="0..1" />
+    <End Role="TBLCHECK" Type="Self.TBLCHECK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLKISILER">
+        <PropertyRef Name="kisiid" />
+      </Principal>
+      <Dependent Role="TBLCHECK">
+        <PropertyRef Name="islemkisi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLKITAP_TBLCHECK">
+    <End Role="TBLCHECK" Type="Self.TBLCHECK" Multiplicity="0..1" />
+    <End Role="TBLKITAP" Type="Self.TBLKITAP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLCHECK">
+        <PropertyRef Name="checkid" />
+      </Principal>
+      <Dependent Role="TBLKITAP">
+        <PropertyRef Name="kitapcheckid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLKITAP_TBLKATEGORILER">
+    <End Role="TBLKATEGORILER" Type="Self.TBLKATEGORILER" Multiplicity="0..1" />
+    <End Role="TBLKITAP" Type="Self.TBLKITAP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLKATEGORILER">
+        <PropertyRef Name="kategoriid" />
+      </Principal>
+      <Dependent Role="TBLKITAP">
+        <PropertyRef Name="kitapkategori" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MvcKitapEntities1" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <EntitySet Name="TBLCHECK" EntityType="Self.TBLCHECK" />
+    <EntitySet Name="TBLKATEGORILER" EntityType="Self.TBLKATEGORILER" />
+    <EntitySet Name="TBLKISILER" EntityType="Self.TBLKISILER" />
+    <EntitySet Name="TBLKITAP" EntityType="Self.TBLKITAP" />
+    <AssociationSet Name="FK_TBLCHECK_TBLKISILER" Association="Self.FK_TBLCHECK_TBLKISILER">
+      <End Role="TBLKISILER" EntitySet="TBLKISILER" />
+      <End Role="TBLCHECK" EntitySet="TBLCHECK" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLKITAP_TBLCHECK" Association="Self.FK_TBLKITAP_TBLCHECK">
+      <End Role="TBLCHECK" EntitySet="TBLCHECK" />
+      <End Role="TBLKITAP" EntitySet="TBLKITAP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLKITAP_TBLKATEGORILER" Association="Self.FK_TBLKITAP_TBLKATEGORILER">
+      <End Role="TBLKATEGORILER" EntitySet="TBLKATEGORILER" />
+      <End Role="TBLKITAP" EntitySet="TBLKITAP" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

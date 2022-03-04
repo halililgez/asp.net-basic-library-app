@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "CheckOut";
+}
+
+<div class="container p-5 mb-5">
+    <form method="post">
+        <div class="row g-3">
+            <div class="col-sm-6">
+                <label for="firstName" class="form-label">Adınız</label>
+                <input type="text" class="form-control" id="firstName"  name="kisiad">
+            </div>
+
+            <div class="col-sm-6">
+                <label for="lastName" class="form-label">Soyadınız</label>
+                <input type="text" class="form-control" id="lastName"   name="kisisoyad">
+            </div>
+
+
+            <div class="col-sm-6">
+                <label class="form-label">TC Numaranız:</label>
+                <input type="text" class="form-control" id="kisitc" maxlength="11" name="kisitc">
+            </div>
+
+
+            <div class="col-sm-6">
+                <label class="form-label">Telefon Numaranız</label>
+                <input type="tel" class="form-control" id="telno" name="kisitelno" pattern="[0-9]{3}-[0-9]{3} [0-9]{4}" placeholder="111-222 3333" maxlength="12"  required><br><br>
+            </div>
+
+            </div>
+            <button class="w-100 btn btn-primary btn-lg" type="submit">Onayla</button>
+</form>
+</div>
+

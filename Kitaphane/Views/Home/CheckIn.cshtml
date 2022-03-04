@@ -1,0 +1,20 @@
+﻿@using Kitaphane.Models.Entity
+@model kitapkisiveislem
+@{
+    ViewBag.Title = "CheckIn";
+}
+
+<div class="container p-5">
+    <form method="post">
+        <ul class="list-group">
+            <li class="list-group-item">Alınan Kitap Adı: @Model.kitapAdi</li>
+            <li class="list-group-item">Alan Kişi: @Model.kisiAdi</li>
+            <li class="list-group-item">Telefon Numarası: @Model.kisiTelefon</li>
+            <li class="list-group-item">Beklenen Teslim Tarihi: @Model.beklenenTeslim</li>
+            <li class="list-group-item">Teslim Edilecek Tarih: @Model.gercekTeslim</li>
+            <li class="list-group-item">Ödenecek Ceza: @Model.toplamCeza</li>
+        </ul>
+        <button class="w-100 btn btn-primary btn-lg" type="submit">Onayla</button>
+    </form>
+</div>
+

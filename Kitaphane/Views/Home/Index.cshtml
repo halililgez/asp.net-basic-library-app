@@ -1,0 +1,43 @@
+﻿@using Kitaphane.Models.Entity
+@model List<TBLKITAP>
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="row row-cols-1 row-cols-md-4 g-4 p-3 pt-5">
+    @foreach (var ktgr in Model)
+    {
+        <div class="col">
+            <div class="card p-3" style="width: 18rem;">
+                <img src="holder.js/100px160" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <h5 class="card-title">@ktgr.kitapad</h5>
+
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">ISBN: @ktgr.kitapisbn</li>
+                    <li class="list-group-item">Yılı: @ktgr.kitapyil</li>
+                    <li class="list-group-item">Fiyat: @ktgr.kitapfiyat</li>
+                    <li class="list-group-item">Kiralama Durumu: @ktgr.kitapcheck</li>
+                </ul>
+                <div class="card-body">
+                    @if (ktgr.kitapcheck == "Alınamaz")
+                    {
+                        <a href="/Home/CheckIn/@ktgr.kitapid" class="card-link">Check-in</a>
+                    }
+                    else
+                    {
+
+                        <a href="/Home/CheckOut/@ktgr.kitapid" class="card-link">Check-out</a>
+
+                    }
+
+                    <a href="/Home/Detay/@ktgr.kitapid" class="card-link">Detay</a>
+
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+

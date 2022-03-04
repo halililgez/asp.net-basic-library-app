@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MvcKitapModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TBLCHECK">
+    <Key>
+      <PropertyRef Name="checkid" />
+    </Key>
+    <Property Name="checkid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="islemkisi" Type="int" />
+    <Property Name="islemtarih" Type="date" />
+  </EntityType>
+  <EntityType Name="TBLKATEGORILER">
+    <Key>
+      <PropertyRef Name="kategoriid" />
+    </Key>
+    <Property Name="kategoriid" Type="smallint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kategoriad" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBLKISILER">
+    <Key>
+      <PropertyRef Name="kisiid" />
+    </Key>
+    <Property Name="kisiid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kisiad" Type="varchar" MaxLength="50" />
+    <Property Name="kisisoyad" Type="varchar" MaxLength="50" />
+    <Property Name="kisitc" Type="int" />
+    <Property Name="kisitelno" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TBLKITAP">
+    <Key>
+      <PropertyRef Name="kitapid" />
+    </Key>
+    <Property Name="kitapid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="kitapad" Type="varchar" MaxLength="50" />
+    <Property Name="kitapisbn" Type="int" />
+    <Property Name="kitapyil" Type="int" />
+    <Property Name="kitapfiyat" Type="decimal" Precision="18" Scale="2" />
+    <Property Name="kitapcheck" Type="varchar" MaxLength="50" />
+    <Property Name="kitapkategori" Type="smallint" />
+    <Property Name="kitapresim" Type="varchar" MaxLength="50" />
+    <Property Name="kitapcheckid" Type="int" />
+  </EntityType>
+  <Association Name="FK_TBLCHECK_TBLKISILER">
+    <End Role="TBLKISILER" Type="Self.TBLKISILER" Multiplicity="0..1" />
+    <End Role="TBLCHECK" Type="Self.TBLCHECK" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLKISILER">
+        <PropertyRef Name="kisiid" />
+      </Principal>
+      <Dependent Role="TBLCHECK">
+        <PropertyRef Name="islemkisi" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLKITAP_TBLCHECK">
+    <End Role="TBLCHECK" Type="Self.TBLCHECK" Multiplicity="0..1" />
+    <End Role="TBLKITAP" Type="Self.TBLKITAP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLCHECK">
+        <PropertyRef Name="checkid" />
+      </Principal>
+      <Dependent Role="TBLKITAP">
+        <PropertyRef Name="kitapcheckid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_TBLKITAP_TBLKATEGORILER">
+    <End Role="TBLKATEGORILER" Type="Self.TBLKATEGORILER" Multiplicity="0..1" />
+    <End Role="TBLKITAP" Type="Self.TBLKITAP" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TBLKATEGORILER">
+        <PropertyRef Name="kategoriid" />
+      </Principal>
+      <Dependent Role="TBLKITAP">
+        <PropertyRef Name="kitapkategori" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MvcKitapModelStoreContainer">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLCHECK" EntityType="Self.TBLCHECK" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLKATEGORILER" EntityType="Self.TBLKATEGORILER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLKISILER" EntityType="Self.TBLKISILER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TBLKITAP" EntityType="Self.TBLKITAP" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_TBLCHECK_TBLKISILER" Association="Self.FK_TBLCHECK_TBLKISILER">
+      <End Role="TBLKISILER" EntitySet="TBLKISILER" />
+      <End Role="TBLCHECK" EntitySet="TBLCHECK" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLKITAP_TBLCHECK" Association="Self.FK_TBLKITAP_TBLCHECK">
+      <End Role="TBLCHECK" EntitySet="TBLCHECK" />
+      <End Role="TBLKITAP" EntitySet="TBLKITAP" />
+    </AssociationSet>
+    <AssociationSet Name="FK_TBLKITAP_TBLKATEGORILER" Association="Self.FK_TBLKITAP_TBLKATEGORILER">
+      <End Role="TBLKATEGORILER" EntitySet="TBLKATEGORILER" />
+      <End Role="TBLKITAP" EntitySet="TBLKITAP" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

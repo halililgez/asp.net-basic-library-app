@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8fa3fd53b2f348e9b9c82bb89cce85c6" Name="Diagram1">
+        <EntityTypeShape EntityType="MvcKitapModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcKitapModel.TBLCHECK" Width="1.5" PointX="3" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcKitapModel.TBLKATEGORILER" Width="1.5" PointX="3" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcKitapModel.TBLKISILER" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MvcKitapModel.TBLKITAP" Width="1.5" PointX="5.25" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="MvcKitapModel.FK_TBLCHECK_TBLKISILER" ManuallyRouted="false" />
+        <AssociationConnector Association="MvcKitapModel.FK_TBLKITAP_TBLCHECK" ManuallyRouted="false" />
+        <AssociationConnector Association="MvcKitapModel.FK_TBLKITAP_TBLKATEGORILER" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
